@@ -13,7 +13,7 @@ import json
 import sys
 ####################################
 handle="twitch status sidebar updater by /u/s8l Ver1"
-curl_location="curl"
+curl_location="curl"#on windows it is likely "C://curl" if you follow http://curl.haxx.se/download.html and extract to c://
 title=">**Twitch streams status**"
 ####################################
 
@@ -35,8 +35,14 @@ def isStreaming(user):
 	proc = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
 	(out, err) = proc.communicate()
 	stream=json.loads(out.decode())
-	return (True if stream['stream'] else False)
-	
+		
+	try:
+		return (True if stream['stream'] else False)
+	except:
+		return False
+	else:
+		return False
+
 def f_last(S,text,last_match=-1):
 	x=S.find(text,last_match+1)
 	if x==-1:
@@ -76,7 +82,7 @@ else:
 		last=f_last(sidebar_contents, title)
 		print ".",#parsing error
 		if last>=0:
-			sidebar_contents=sidebar_contents[0:last-1]
+			sidebar_contents=sidebar_contents[0:last]
 		else:
 			sidebar_contents+="  \n"
 		sidebar_contents+=title
