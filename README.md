@@ -10,23 +10,17 @@ Will produce the following output:
 Logging in. Check for praw.errors, otherwise the password is correct  
 USER= s8l  
 SUB= bot_playground  
-Logged in  
-:0: UserWarning: Extra settings fields: [u'hide_ads']  
+Logged in   
 Updating . . esl_hearthstone sxswgaming cheatbanned cheesy_crust defiantdaniel talonbytes shroudedesmeree . . Done  
-Next update in 30 seconds.  
-:0: UserWarning: Extra settings fields: [u'hide_ads']  
+Next update in 30 seconds.   
 Updating . . esl_hearthstone sxswgaming cheatbanned cheesy_crust defiantdaniel talonbytes shroudedesmeree . . Done  
-Next update in 30 seconds.  
-:0: UserWarning: Extra settings fields: [u'hide_ads']  
+Next update in 30 seconds.   
 Updating . . esl_hearthstone sxswgaming cheatbanned cheesy_crust defiantdaniel talonbytes shroudedesmeree . . Done  
-Next update in 30 seconds.  
-:0: UserWarning: Extra settings fields: [u'hide_ads']  
+Next update in 30 seconds.   
 Updating . . esl_hearthstone sxswgaming cheatbanned cheesy_crust defiantdaniel talonbytes shroudedesmeree . . Done  
-Next update in 30 seconds.  
-:0: UserWarning: Extra settings fields: [u'hide_ads']  
+Next update in 30 seconds.   
 Updating . . esl_hearthstone sxswgaming cheatbanned cheesy_crust defiantdaniel talonbytes shroudedesmeree . . Done  
-Next update in 30 seconds.  
-:0: UserWarning: Extra settings fields: [u'hide_ads']  
+Next update in 30 seconds.   
 Updating . . esl_hearthstone sxswgaming cheatbanned cheesy_crust defiantdaniel talonbytes shroudedesmeree . . Done  
 Next update in 30 seconds.  
 
