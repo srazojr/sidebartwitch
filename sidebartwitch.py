@@ -12,8 +12,8 @@ import HTMLParser
 import json
 import sys
 ####################################
-handle="twitch status sidebar updater by /u/s8l Ver0"
-curl_location="c://curl.exe "
+handle="twitch status sidebar updater by /u/s8l Ver1"
+curl_location="curl"
 title=">**Twitch streams status**"
 ####################################
 
@@ -31,28 +31,28 @@ sidebartwitch username password sub delay_in_sec twitch_stream1 [twitch_stream2 
 
 def isStreaming(user):
 	global curl_location
-	command=curl_location+" -H 'Accept: application/vnd.twitchtv.v2+json' -X GET https://api.twitch.tv/kraken/streams/"+user+" -k"
+	command=curl_location+" -s -H 'Accept: application/vnd.twitchtv.v2+json' -X GET https://api.twitch.tv/kraken/streams/"+user+" -k"
 	proc = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
 	(out, err) = proc.communicate()
 	stream=json.loads(out.decode())
 	return (True if stream['stream'] else False)
 	
 def f_last(S,text,last_match=-1):
-		x=S.find(text,last_match+1)
-		if x=-1:
-			return last_match
-		return f_last(S,text,x)
+	x=S.find(text,last_match+1)
+	if x==-1:
+		return last_match
+	return f_last(S,text,x)
 		
 
 ########MAIN#########
-if len(sys.argv)<5
+if len(sys.argv)<6:
 	help()
 else:
-	stream_users=len(sys.argv)-3
-	user=sys.argv[0]
-	passw=sys.argv[1]
-	sub=sys.argv[2]
-	delay=sys.argv[3]
+	stream_users=len(sys.argv)-4
+	user=sys.argv[1]
+	passw=sys.argv[2]
+	sub=sys.argv[3]
+	delay=int(sys.argv[4])
 	os.system( 'cls' if os.name == 'nt' else 'clear')
 	print "Logging in. Check for praw.errors, otherwise the password is correct"
 	r = praw.Reddit(handle)
@@ -68,26 +68,31 @@ else:
 		r.login(user,passw)
 		settings = r.get_settings(sub)	
 		#parse html
-		print ".",
+		print ".",#login error
 		htmldescription=settings['description']
 		htmlparser=HTMLParser.HTMLParser()
 		sidebar_contents = htmlparser.unescape(htmldescription)
 		#delete old settings
 		last=f_last(sidebar_contents, title)
-		print ".",
-		if x>=0:
-			sidebar_contents=sidebar_contents[0:x-1]
+		print ".",#parsing error
+		if last>=0:
+			sidebar_contents=sidebar_contents[0:last-1]
+		else:
+			sidebar_contents+="  \n"
 		sidebar_contents+=title
 		#add new streams
-		for everystream in sys.argv[4:]:
+		for everystream in sys.argv[5:]:
+			print everystream,
 			sidebar_contents+="   \n>"+everystream+" "
 			sidebar_contents+=("ON" if isStreaming(everystream) else "OFF")
-		print ".",
+		print ".",#twitch error
 		#update status bar
 		r.update_settings(r.get_subreddit(sub), description=sidebar_contents)
+		print ".",#updating sidebar error
 		r.clear_authentication()
 		#wait
 		print "Done"
+		print "Next update in "+str(delay)+" seconds."
 		sleep(delay)
 		
 		
