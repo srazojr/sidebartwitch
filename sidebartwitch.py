@@ -7,7 +7,7 @@
 import praw
 from time import sleep 
 import os
-import subprocess
+import subprocess 
 import HTMLParser
 import json
 import sys
@@ -29,7 +29,7 @@ sidebartwitch username password sub delay_in_sec twitch_stream1 [twitch_stream2 
 
 
 
-def isStreaming(user):
+def isStreaming( user ):
 	global curl_location
 	command=curl_location+" -s -H 'Accept: application/vnd.twitchtv.v2+json' -X GET https://api.twitch.tv/kraken/streams/"+user+" -k"
 	proc = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
